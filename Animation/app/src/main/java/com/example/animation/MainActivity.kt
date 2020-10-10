@@ -7,8 +7,8 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
-import android.view.animation.AnimationSet
 import android.view.animation.LinearInterpolator
+import android.view.animation.TranslateAnimation
 import android.widget.FrameLayout
 import androidx.appcompat.widget.AppCompatImageView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -26,7 +26,8 @@ class MainActivity : AppCompatActivity() {
             rotate()
         }
         shift_button.setOnClickListener {
-            shifting()
+//            shifting()
+            shiftLeftAndRight()
         }
         scale_button.setOnClickListener {
             scale()
@@ -67,11 +68,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun shifting() {
-        val animator = ObjectAnimator.ofFloat(star, View.TRANSLATION_X, 200f)
+        val animator = ObjectAnimator.ofFloat(star, View.TRANSLATION_X, 0f, 200f)
         animator.repeatCount = 3
         animator.repeatMode = ObjectAnimator.REVERSE
         animator.disableViewDuringAnimation(shift_button)
         animator.start()
+    }
+
+    private fun shiftLeftAndRight() {
+        val animator = TranslateAnimation(-200f, 200f, 0f, 0f)
+        animator.duration = 1000
+        animator.repeatCount = 5
+        animator.repeatMode = ObjectAnimator.REVERSE
+        star.startAnimation(animator)
     }
 
     private fun scale() {
@@ -128,7 +137,7 @@ class MainActivity : AppCompatActivity() {
         starWidth *= newStar.scaleX
         starHeight *= newStar.scaleY
 
-        // randomize the born
+        // randomize the born place
         newStar.translationX = Math.random().toFloat() * containerWidth - starWidth
 
         // animation
