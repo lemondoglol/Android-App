@@ -25,6 +25,7 @@ class MyDialogFragment : DialogFragment() {
                 dismiss()
                 listener.onDialogPositiveClick(this)
             }
+
             builder.create()
 
         } ?: throw IllegalStateException("Activity cannot be null")
@@ -38,6 +39,8 @@ class MyDialogFragment : DialogFragment() {
             throw ClassCastException("ClassCastException")
         }
     }
+
+
 
     /**
      * used for activity action
